@@ -1,9 +1,9 @@
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Task } from './entities/task.entity';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from './entities/task.entity'; // Import your Task entity
 
 @Injectable()
 export class TasksService {
@@ -13,48 +13,36 @@ export class TasksService {
   ) {}
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
-    const { title, status } = createTaskDto;
-
-    const task = this.taskRepository.create({ title, status });
-    await this.taskRepository.save(task);
-
-    return task;
+    const task = this.taskRepository.create(createTaskDto);
+    return await this.taskRepository.save(task);
   }
 
   async findAll(): Promise<Task[]> {
-    return this.taskRepository.find();
+    return await this.taskRepository.find();
   }
 
-  async findOne(id: any): Promise<Task> {
-    const task = await this.taskRepository.findOne(id);
-
-    if (!task) {
+  async findOne(id: number): Promise<Task> {
+    const found = await this.taskRepository.findOne({
+      where: { id },
+    });
+    if (!found) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
 
-    return task;
+    return found;
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
-    const { title, status } = updateTaskDto;
-
     const task = await this.findOne(id);
-
-    if (title) {
-      task.title = title;
-    }
-
-    if (status) {
-      task.status = status;
-    }
-
-    await this.taskRepository.save(task);
-
-    return task;
+    this.taskRepository.merge(task, updateTaskDto);
+    return await this.taskRepository.save(task);
   }
 
   async remove(id: number): Promise<void> {
     const task = await this.findOne(id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
     await this.taskRepository.remove(task);
   }
 }
