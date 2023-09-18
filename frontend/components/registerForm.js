@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginForm = ({ formData, handleChange, handleSubmit, error }) => {
+const RegisterForm = ({ formData, handleChange, handleSubmit, error }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
@@ -37,11 +37,11 @@ const LoginForm = ({ formData, handleChange, handleSubmit, error }) => {
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
         >
-          Login
+          Register
         </button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
