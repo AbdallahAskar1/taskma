@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const fetchTasks = () => {
-  return axios.get('http://localhost:3000/tasks');
+export const fetchTasks = (userId) => {
+  return axios.get(`http://localhost:3000/tasks/user/${userId}`);
 };
 
 export const createTask = (task) => {
