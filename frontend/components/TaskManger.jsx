@@ -7,7 +7,7 @@ import * as api from './api';
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
-    api.fetchTasks()
+    api.fetchTasks(localStorage.getItem('userId'))
       .then(response => setTasks(response.data))
       .catch(error => console.error("Error fetching tasks:", error));
   }, []);

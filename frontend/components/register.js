@@ -1,37 +1,37 @@
 'use client'
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { registerUser } from '@/api/auth';
-
+import { useRouter } from 'next/navigation';
 import LoginForm from './LoginForm';
+import RegisterForm from './registerForm';
 const Register = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    username: 'abdallah',
-    password: '123456',
-    confirmPassword: '',
+    username: '',
+    password: '',
   });
-  const [error,setError] = useState()
+  const [error,setError] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData)=>({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
       const body = {
-        username:formData.name,
+        username:formData.username,
         password:formData.password
       }
-      const res = await registerUser(formData);
-      console.log(res)
-        // if(!res.user) {
-        //     setError('username already taken')
-        //     return null;
-        // }
+      const res = await registerUser(body);
 
-        localStorage.setItem('userId',user.id);
+      if(!res.user) {
+            setError('username already taken')
+            return ;
+        }
+
+        localStorage.setItem('userId',res.user.id);
         router.push("/login")
         return null;
   
@@ -41,7 +41,7 @@ const Register = () => {
     <div className="bg-gray-200 min-h-screen flex justify-center items-center text-black">
     <div className="bg-white p-6 rounded shadow-md w-96">
       <h2 className="text-2xl font-semibold mb-4">Register</h2>
-      <LoginForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} error={error}/>
+      <RegisterForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} error={error}/>
       </div>       
   </div>
   );

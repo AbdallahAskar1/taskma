@@ -1,11 +1,13 @@
+'use client'
 import React, { useState } from 'react';
 import * as api from './api';
 
 const TaskForm = ({ addTask }) => {
+  const userId= localStorage.getItem('userId')
   const [newTask, setNewTask] = useState({ 
     title: '',
     description: '' ,
-    userId:'2',
+    userId:userId,
     status:'CREATED'
   });
   const [error,setError] = useState([])
@@ -32,7 +34,12 @@ const TaskForm = ({ addTask }) => {
         className="border rounded-lg p-2 mr-2" 
         placeholder="Task Title" 
         value={newTask.title} 
-        onChange={e => setNewTask({ ...newTask, title: e.target.value })} 
+        onChange={(e) => {
+          if (error) {
+            setError('');
+          }
+          setNewTask({ ...newTask, title: e.target.value });
+        }} 
       />
       <input 
         className="border rounded-lg p-2 mr-2" 

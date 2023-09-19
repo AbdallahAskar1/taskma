@@ -7,9 +7,9 @@ import LoginForm from './LoginForm';
 const Login = () => {
     const router = useRouter()
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     password: '',
-    confirmPassword: '',
+    
   });
   const [error, setError] = useState('');
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ const Login = () => {
         }
 
         localStorage.setItem('authToken',token);
-        router.push("/")
+        router.push("/home")
         return null;
     } catch (error) {
     
