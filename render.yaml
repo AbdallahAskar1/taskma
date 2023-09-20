@@ -1,5 +1,5 @@
 services:
-  - type: pserv
+  - type: web
     name: mysql
     runtime: image
     image: 
@@ -9,7 +9,7 @@ services:
       path: /
       port: 3306
 
-  - type: pserv
+  - type: web
     name: nestjs
     runtime: image
     image: 
