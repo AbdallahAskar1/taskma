@@ -9,8 +9,9 @@ services:
       port: 3306
 
   - name: nestjs
-    type: web
-    image: abdallahasker/backend-nestjs:latest
+    runtime: image
+    image: 
+      url: abdallahasker/backend-nestjs:latest
     envVarGroup: database-var
     
   - name: frontend
