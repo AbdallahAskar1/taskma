@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - type: pserv
     name: mysql
     runtime: image
     image: 
@@ -13,9 +13,6 @@ services:
         value: root
       - key: MYSQL_PASSWORD
         value: askarpass
-    healthCheck:
-      path: /
-      port: 3306
 
   - type: web
     name: nestjs
@@ -37,16 +34,4 @@ services:
     runtime: image
     image:
       url: abdallahasker/backend-frontend:latest 
-    healthCheck:
-      path: /
-      port: 8080
-
-routes:
-  - path: /
-    service: frontend  
-    checkPath: /
-    healthCheckTimeout: 5000
-
-  - path: /api/*
-    service: nestjs
 
