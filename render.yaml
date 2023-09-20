@@ -1,16 +1,9 @@
 services:
   - name: mysql
-    type: docker
-    image: tmsmysql:latest 
-    envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        value: askarpass
-      - key: MYSQL_DATABASE
-        value: tmsdb
-      - key: MYSQL_USER
-        value: root
-      - key: MYSQL_PASSWORD
-        value: askarpass
+    runtime: image
+    image: 
+      url: abdallahasker/tmsmysql:latest 
+    envVarGroup: database-var
     healthCheck:
       path: /
       port: 3306
@@ -18,21 +11,16 @@ services:
   - name: nestjs
     type: web
     image: abdallahasker/backend-nestjs:latest
-    envVars:
-      - key: MYSQL_HOST
-        value: mysql
-      - key: MYSQL_ROOT_PASSWORD
-        value: askarpass
-      - key: MYSQL_USER
-        value: root
-      - key: MYSQL_PASSWORD
-        value: askarpass
+    envVarGroup: database-var
+    
   - name: frontend
-    type: docker
-    image: abdallahasker/backend-frontend:latest 
+    runtime: image
+    image:
+      url: abdallahasker/backend-frontend:latest 
     healthCheck:
       path: /
       port: 8080
+
 routes:
   - path: /
     service: frontend  
@@ -42,3 +30,14 @@ routes:
   - path: /api/*
     service: nestjs
 
+envVarGroups:
+  - name : database-var
+    envVars:
+      - key: MYSQL_HOST
+        value: mysql
+      - key: MYSQL_ROOT_PASSWORD
+        value: askarpass
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: askarpass
