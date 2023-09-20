@@ -4,7 +4,15 @@ services:
     runtime: image
     image: 
       url: abdallahasker/tmsmysql:latest 
-    envVarGroup: database-var
+    envVars:
+      - key: MYSQL_HOST
+        value: mysql
+      - key: MYSQL_ROOT_PASSWORD
+        value: askarpass
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: askarpass
     healthCheck:
       path: /
       port: 3306
@@ -14,7 +22,15 @@ services:
     runtime: image
     image: 
       url: abdallahasker/backend-nestjs:latest
-    envVarGroup: database-var
+    envVars:
+      - key: MYSQL_HOST
+        value: mysql
+      - key: MYSQL_ROOT_PASSWORD
+        value: askarpass
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: askarpass
     
   - type: web
     name: frontend
@@ -34,14 +50,3 @@ routes:
   - path: /api/*
     service: nestjs
 
-envVarGroups:
-  - name : database-var
-    envVars:
-      - key: MYSQL_HOST
-        value: mysql
-      - key: MYSQL_ROOT_PASSWORD
-        value: askarpass
-      - key: MYSQL_USER
-        value: root
-      - key: MYSQL_PASSWORD
-        value: askarpass
