@@ -16,7 +16,7 @@ services:
       port: 3306
 
   - name: nestjs
-    type: docker
+    type: web
     image: abdallahasker/backend-nestjs:latest
     envVars:
       - key: MYSQL_HOST
