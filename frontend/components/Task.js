@@ -18,7 +18,7 @@ const TaskItem = ({ task, setTasks }) => {
 };
 
 useEffect(() => {
-  const newSocket = io('http://127.0.0.1:3000');
+  const newSocket = io('https://cuddly-garbanzo-755r455qgg5cv69-3000.app.github.dev');
   setSocket(newSocket);
 
   return () => {

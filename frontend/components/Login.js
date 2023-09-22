@@ -28,6 +28,7 @@ const Login = () => {
         }
 
         localStorage.setItem('authToken',token);
+        localStorage.setItem('userId',1);
         router.push("/home")
         return null;
     } catch (error) {

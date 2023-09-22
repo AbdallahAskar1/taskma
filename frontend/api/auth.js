@@ -1,7 +1,7 @@
 // api/auth.js
 import axios from 'axios';
 
-const apiEndpoint = 'http://localhost:3000';
+const apiEndpoint = 'https://cuddly-garbanzo-755r455qgg5cv69-3000.app.github.dev';
 
 export const loginUser = async (formData) => {
   try {
