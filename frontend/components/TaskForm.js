@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import * as api from './api';
 
 const TaskForm = ({ addTask }) => {
-  const userId= localStorage.getItem('userId')
+  let userId;
+  useEffect(() => {
+     userId= localStorage.getItem('userId')
+    }, [])
+  
   const [newTask, setNewTask] = useState({ 
     title: '',
     description: '' ,
